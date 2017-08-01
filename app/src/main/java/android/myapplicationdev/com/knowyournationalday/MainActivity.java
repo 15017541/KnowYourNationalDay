@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -45,17 +46,15 @@ public class MainActivity extends AppCompatActivity {
         final EditText etLogin = (EditText) login
                 .findViewById(R.id.editTextLogin);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // prevent dialog from closing through 'Back' button
+        builder.setCancelable(false);
         builder.setTitle("Please Login")
                 .setView(login)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if(etLogin.getText().toString() == "738964"){
 
-                        } else {
-                            Toast.makeText(MainActivity.this, "Invalid Access Code", Toast.LENGTH_LONG).show();
-                        }
                     }
                 })
                 .setNegativeButton("No Access Code", new DialogInterface.OnClickListener() {
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-        AlertDialog alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_send) {
             String [] list = new String[] { "Email", "SMS"};
-
+            final String a = array[0] + "\n" + array[1] + "\n" + array[2];
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Select the way to enrich your friend")
                     // Set the list of items easily by just supplying an
@@ -112,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                 email.putExtra(Intent.EXTRA_SUBJECT,
                                         "Test Email from C347");
                                 email.putExtra(Intent.EXTRA_TEXT,
-                                        Arrays.toString(array));
-
+                                        a);
                                 // This MIME type indicates email
                                 email.setType("message/rfc822");
 
@@ -123,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                         "Choose an Email client :"));
                             } else {
                                 SmsManager smsManager = SmsManager.getDefault();
-                                smsManager.sendTextMessage("12345678", null,  Arrays.toString(array), null, null);
+                                smsManager.sendTextMessage("12345678", null,  a, null, null);
                             }
                         }
                     });
