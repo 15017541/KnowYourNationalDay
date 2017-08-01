@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        if(etLogin.getText().toString().equals("738964") == false){
+                            Toast.makeText(MainActivity.this, "Invalid", Toast.LENGTH_LONG).show();
+                        } else {
 
+                        }
                     }
                 })
                 .setNegativeButton("No Access Code", new DialogInterface.OnClickListener() {
